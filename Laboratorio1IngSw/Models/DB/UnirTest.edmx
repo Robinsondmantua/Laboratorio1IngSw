@@ -1,0 +1,410 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TestPlataformaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Asignaturas">
+          <Key>
+            <PropertyRef Name="IDAsignatura" />
+          </Key>
+          <Property Name="IDAsignatura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDGrado" Type="int" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Grado">
+          <Key>
+            <PropertyRef Name="IDGrado" />
+          </Key>
+          <Property Name="IDGrado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="RolesUsuario">
+          <Key>
+            <PropertyRef Name="IDRol" />
+          </Key>
+          <Property Name="IDRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Temas">
+          <Key>
+            <PropertyRef Name="IDTema" />
+          </Key>
+          <Property Name="IDTema" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDAsignatura" Type="int" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="TestRespuestas">
+          <Key>
+            <PropertyRef Name="IDTestRespuestas" />
+          </Key>
+          <Property Name="IDTestRespuestas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDTest" Type="int" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="255" />
+          <Property Name="Orden" Type="smallint" />
+          <Property Name="Correcta" Type="bit" />
+        </EntityType>
+        <EntityType Name="TestTemas">
+          <Key>
+            <PropertyRef Name="IDTest" />
+          </Key>
+          <Property Name="IDTest" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDTema" Type="int" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="250" />
+          <Property Name="Orden" Type="smallint" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="IDUsuario" />
+          </Key>
+          <Property Name="IDUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDRol" Type="int" />
+          <Property Name="Nombre" Type="varchar" MaxLength="10" />
+          <Property Name="Password" Type="binary" MaxLength="64" />
+        </EntityType>
+        <Association Name="FK_Asignaturas_Grado">
+          <End Role="Grado" Type="Self.Grado" Multiplicity="0..1" />
+          <End Role="Asignaturas" Type="Self.Asignaturas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grado">
+              <PropertyRef Name="IDGrado" />
+            </Principal>
+            <Dependent Role="Asignaturas">
+              <PropertyRef Name="IDGrado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Temas_Asignaturas">
+          <End Role="Asignaturas" Type="Self.Asignaturas" Multiplicity="0..1" />
+          <End Role="Temas" Type="Self.Temas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asignaturas">
+              <PropertyRef Name="IDAsignatura" />
+            </Principal>
+            <Dependent Role="Temas">
+              <PropertyRef Name="IDAsignatura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestRespuestas_TestTemas">
+          <End Role="TestTemas" Type="Self.TestTemas" Multiplicity="0..1" />
+          <End Role="TestRespuestas" Type="Self.TestRespuestas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestTemas">
+              <PropertyRef Name="IDTest" />
+            </Principal>
+            <Dependent Role="TestRespuestas">
+              <PropertyRef Name="IDTest" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestTemas_Temas">
+          <End Role="Temas" Type="Self.Temas" Multiplicity="0..1" />
+          <End Role="TestTemas" Type="Self.TestTemas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Temas">
+              <PropertyRef Name="IDTema" />
+            </Principal>
+            <Dependent Role="TestTemas">
+              <PropertyRef Name="IDTema" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_RolesUsuario">
+          <End Role="RolesUsuario" Type="Self.RolesUsuario" Multiplicity="0..1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RolesUsuario">
+              <PropertyRef Name="IDRol" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="IDRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TestPlataformaModelStoreContainer">
+          <EntitySet Name="Asignaturas" EntityType="Self.Asignaturas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Grado" EntityType="Self.Grado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RolesUsuario" EntityType="Self.RolesUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Temas" EntityType="Self.Temas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestRespuestas" EntityType="Self.TestRespuestas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestTemas" EntityType="Self.TestTemas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Asignaturas_Grado" Association="Self.FK_Asignaturas_Grado">
+            <End Role="Grado" EntitySet="Grado" />
+            <End Role="Asignaturas" EntitySet="Asignaturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Temas_Asignaturas" Association="Self.FK_Temas_Asignaturas">
+            <End Role="Asignaturas" EntitySet="Asignaturas" />
+            <End Role="Temas" EntitySet="Temas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestRespuestas_TestTemas" Association="Self.FK_TestRespuestas_TestTemas">
+            <End Role="TestTemas" EntitySet="TestTemas" />
+            <End Role="TestRespuestas" EntitySet="TestRespuestas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestTemas_Temas" Association="Self.FK_TestTemas_Temas">
+            <End Role="Temas" EntitySet="Temas" />
+            <End Role="TestTemas" EntitySet="TestTemas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_RolesUsuario" Association="Self.FK_Usuarios_RolesUsuario">
+            <End Role="RolesUsuario" EntitySet="RolesUsuario" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TestPlataformaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Asignaturas">
+          <Key>
+            <PropertyRef Name="IDAsignatura" />
+          </Key>
+          <Property Name="IDAsignatura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDGrado" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Grado" Relationship="Self.FK_Asignaturas_Grado" FromRole="Asignaturas" ToRole="Grado" />
+          <NavigationProperty Name="Temas" Relationship="Self.FK_Temas_Asignaturas" FromRole="Asignaturas" ToRole="Temas" />
+        </EntityType>
+        <EntityType Name="Grado">
+          <Key>
+            <PropertyRef Name="IDGrado" />
+          </Key>
+          <Property Name="IDGrado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Asignaturas" Relationship="Self.FK_Asignaturas_Grado" FromRole="Grado" ToRole="Asignaturas" />
+        </EntityType>
+        <EntityType Name="RolesUsuario">
+          <Key>
+            <PropertyRef Name="IDRol" />
+          </Key>
+          <Property Name="IDRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_Usuarios_RolesUsuario" FromRole="RolesUsuario" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Temas">
+          <Key>
+            <PropertyRef Name="IDTema" />
+          </Key>
+          <Property Name="IDTema" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDAsignatura" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Asignaturas" Relationship="Self.FK_Temas_Asignaturas" FromRole="Temas" ToRole="Asignaturas" />
+          <NavigationProperty Name="TestTemas" Relationship="Self.FK_TestTemas_Temas" FromRole="Temas" ToRole="TestTemas" />
+        </EntityType>
+        <EntityType Name="TestRespuestas">
+          <Key>
+            <PropertyRef Name="IDTestRespuestas" />
+          </Key>
+          <Property Name="IDTestRespuestas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDTest" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Orden" Type="Int16" />
+          <Property Name="Correcta" Type="Boolean" />
+          <NavigationProperty Name="TestTemas" Relationship="Self.FK_TestRespuestas_TestTemas" FromRole="TestRespuestas" ToRole="TestTemas" />
+        </EntityType>
+        <EntityType Name="TestTemas">
+          <Key>
+            <PropertyRef Name="IDTest" />
+          </Key>
+          <Property Name="IDTest" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDTema" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Orden" Type="Int16" />
+          <NavigationProperty Name="Temas" Relationship="Self.FK_TestTemas_Temas" FromRole="TestTemas" ToRole="Temas" />
+          <NavigationProperty Name="TestRespuestas" Relationship="Self.FK_TestRespuestas_TestTemas" FromRole="TestTemas" ToRole="TestRespuestas" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="IDUsuario" />
+          </Key>
+          <Property Name="IDUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDRol" Type="Int32" />
+          <Property Name="Nombre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="Binary" MaxLength="64" FixedLength="true" />
+          <NavigationProperty Name="RolesUsuario" Relationship="Self.FK_Usuarios_RolesUsuario" FromRole="Usuarios" ToRole="RolesUsuario" />
+        </EntityType>
+        <Association Name="FK_Asignaturas_Grado">
+          <End Role="Grado" Type="Self.Grado" Multiplicity="0..1" />
+          <End Role="Asignaturas" Type="Self.Asignaturas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grado">
+              <PropertyRef Name="IDGrado" />
+            </Principal>
+            <Dependent Role="Asignaturas">
+              <PropertyRef Name="IDGrado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Temas_Asignaturas">
+          <End Role="Asignaturas" Type="Self.Asignaturas" Multiplicity="0..1" />
+          <End Role="Temas" Type="Self.Temas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asignaturas">
+              <PropertyRef Name="IDAsignatura" />
+            </Principal>
+            <Dependent Role="Temas">
+              <PropertyRef Name="IDAsignatura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_RolesUsuario">
+          <End Role="RolesUsuario" Type="Self.RolesUsuario" Multiplicity="0..1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RolesUsuario">
+              <PropertyRef Name="IDRol" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="IDRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestTemas_Temas">
+          <End Role="Temas" Type="Self.Temas" Multiplicity="0..1" />
+          <End Role="TestTemas" Type="Self.TestTemas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Temas">
+              <PropertyRef Name="IDTema" />
+            </Principal>
+            <Dependent Role="TestTemas">
+              <PropertyRef Name="IDTema" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestRespuestas_TestTemas">
+          <End Role="TestTemas" Type="Self.TestTemas" Multiplicity="0..1" />
+          <End Role="TestRespuestas" Type="Self.TestRespuestas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestTemas">
+              <PropertyRef Name="IDTest" />
+            </Principal>
+            <Dependent Role="TestRespuestas">
+              <PropertyRef Name="IDTest" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TestPlataformaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Asignaturas" EntityType="Self.Asignaturas" />
+          <EntitySet Name="Grado" EntityType="Self.Grado" />
+          <EntitySet Name="RolesUsuario" EntityType="Self.RolesUsuario" />
+          <EntitySet Name="Temas" EntityType="Self.Temas" />
+          <EntitySet Name="TestRespuestas" EntityType="Self.TestRespuestas" />
+          <EntitySet Name="TestTemas" EntityType="Self.TestTemas" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+          <AssociationSet Name="FK_Asignaturas_Grado" Association="Self.FK_Asignaturas_Grado">
+            <End Role="Grado" EntitySet="Grado" />
+            <End Role="Asignaturas" EntitySet="Asignaturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Temas_Asignaturas" Association="Self.FK_Temas_Asignaturas">
+            <End Role="Asignaturas" EntitySet="Asignaturas" />
+            <End Role="Temas" EntitySet="Temas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_RolesUsuario" Association="Self.FK_Usuarios_RolesUsuario">
+            <End Role="RolesUsuario" EntitySet="RolesUsuario" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestTemas_Temas" Association="Self.FK_TestTemas_Temas">
+            <End Role="Temas" EntitySet="Temas" />
+            <End Role="TestTemas" EntitySet="TestTemas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestRespuestas_TestTemas" Association="Self.FK_TestRespuestas_TestTemas">
+            <End Role="TestTemas" EntitySet="TestTemas" />
+            <End Role="TestRespuestas" EntitySet="TestRespuestas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TestPlataformaModelStoreContainer" CdmEntityContainer="TestPlataformaEntities">
+          <EntitySetMapping Name="Asignaturas">
+            <EntityTypeMapping TypeName="TestPlataformaModel.Asignaturas">
+              <MappingFragment StoreEntitySet="Asignaturas">
+                <ScalarProperty Name="IDAsignatura" ColumnName="IDAsignatura" />
+                <ScalarProperty Name="IDGrado" ColumnName="IDGrado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Grado">
+            <EntityTypeMapping TypeName="TestPlataformaModel.Grado">
+              <MappingFragment StoreEntitySet="Grado">
+                <ScalarProperty Name="IDGrado" ColumnName="IDGrado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RolesUsuario">
+            <EntityTypeMapping TypeName="TestPlataformaModel.RolesUsuario">
+              <MappingFragment StoreEntitySet="RolesUsuario">
+                <ScalarProperty Name="IDRol" ColumnName="IDRol" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Temas">
+            <EntityTypeMapping TypeName="TestPlataformaModel.Temas">
+              <MappingFragment StoreEntitySet="Temas">
+                <ScalarProperty Name="IDTema" ColumnName="IDTema" />
+                <ScalarProperty Name="IDAsignatura" ColumnName="IDAsignatura" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestRespuestas">
+            <EntityTypeMapping TypeName="TestPlataformaModel.TestRespuestas">
+              <MappingFragment StoreEntitySet="TestRespuestas">
+                <ScalarProperty Name="IDTestRespuestas" ColumnName="IDTestRespuestas" />
+                <ScalarProperty Name="IDTest" ColumnName="IDTest" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Orden" ColumnName="Orden" />
+                <ScalarProperty Name="Correcta" ColumnName="Correcta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestTemas">
+            <EntityTypeMapping TypeName="TestPlataformaModel.TestTemas">
+              <MappingFragment StoreEntitySet="TestTemas">
+                <ScalarProperty Name="IDTest" ColumnName="IDTest" />
+                <ScalarProperty Name="IDTema" ColumnName="IDTema" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Orden" ColumnName="Orden" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="TestPlataformaModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
+                <ScalarProperty Name="IDRol" ColumnName="IDRol" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
