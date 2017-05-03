@@ -1,0 +1,51 @@
+﻿@model Laboratorio1IngSw.Models.DB.TestRespuestas
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TestRespuestas</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Orden)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Orden)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Correcta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Correcta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TestTemas.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TestTemas.Descripcion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDTestRespuestas }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -135,7 +135,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AsignaturasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MenuAdministracionController.cs" />
+    <Compile Include="Controllers\MenuAsignaturasController.cs" />
+    <Compile Include="Controllers\TemasController.cs" />
+    <Compile Include="Controllers\TestRespuestasController.cs" />
+    <Compile Include="Controllers\TestTemasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -231,6 +237,30 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Home\Welcome.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\MenuAdministracion\MenuAdministracion.cshtml" />
+    <Content Include="Views\Asignaturas\Create.cshtml" />
+    <Content Include="Views\Asignaturas\Delete.cshtml" />
+    <Content Include="Views\Asignaturas\Details.cshtml" />
+    <Content Include="Views\Asignaturas\Edit.cshtml" />
+    <Content Include="Views\Asignaturas\Index.cshtml" />
+    <Content Include="Views\MenuAsignaturas\MenuAsignaturas.cshtml" />
+    <Content Include="Views\Temas\Create.cshtml" />
+    <Content Include="Views\Temas\Delete.cshtml" />
+    <Content Include="Views\Temas\Details.cshtml" />
+    <Content Include="Views\Temas\Edit.cshtml" />
+    <Content Include="Views\Temas\Index.cshtml" />
+    <Content Include="Views\TestTemas\Create.cshtml" />
+    <Content Include="Views\TestTemas\Delete.cshtml" />
+    <Content Include="Views\TestTemas\Details.cshtml" />
+    <Content Include="Views\TestTemas\Edit.cshtml" />
+    <Content Include="Views\TestTemas\Index.cshtml" />
+    <Content Include="Views\TestRespuestas\Create.cshtml" />
+    <Content Include="Views\TestRespuestas\Delete.cshtml" />
+    <Content Include="Views\TestRespuestas\Details.cshtml" />
+    <Content Include="Views\TestRespuestas\Edit.cshtml" />
+    <Content Include="Views\TestRespuestas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

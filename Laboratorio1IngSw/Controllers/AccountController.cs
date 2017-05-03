@@ -49,7 +49,7 @@ namespace Laboratorio1IngSw.Controllers
                     if (Convert.ToBase64String(pwd).Equals(Convert.ToBase64String(pwdenc)))
                     {
                         FormsAuthentication.SetAuthCookie(ulv.Nombre, false);
-                        return RedirectToAction("Welcome", "Home");
+                        return RedirectToAction("MenuAdministracion", "MenuAdministracion");
                     }
                     else { ModelState.AddModelError("", "Datos identificativos incorrectos."); }
                 }

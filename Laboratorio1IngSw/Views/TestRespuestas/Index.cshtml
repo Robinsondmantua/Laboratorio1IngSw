@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Laboratorio1IngSw.Models.DB.TestRespuestas>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Orden)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Correcta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TestTemas.Descripcion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Orden)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Correcta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TestTemas.Descripcion)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDTestRespuestas }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDTestRespuestas }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDTestRespuestas })
+        </td>
+    </tr>
+}
+
+</table>
