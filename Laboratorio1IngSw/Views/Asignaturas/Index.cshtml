@@ -5,36 +5,54 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Gestión de Asignaturas</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Grado.Descripcion)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Grado.Descripcion)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IDAsignatura }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IDAsignatura }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IDAsignatura })
-        </td>
-    </tr>
-}
-
-</table>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <table class="table table-bordered table-hover" id="tabla1">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Descripcion)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Grado.Descripcion)
+                        </th>
+                        <th>Editar</th>
+                        <th>Borrar</th>
+                        <th>Ver</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Descripcion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Grado.Descripcion)
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default btn-md" onclick="location.href='@Url.Action("Edit", "Asignaturas",  new { id = item.IDAsignatura })'"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default btn-md" onclick="location.href='@Url.Action("Delete", "Asignaturas",  new { id = item.IDAsignatura })'"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default btn-md" onclick="location.href='@Url.Action("Details", "Asignaturas",  new { id = item.IDAsignatura })'"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td colspan="5" align="right"><button type="button" class="btn btn-default btn-md" onclick="location.href='@Url.Action("Create", "Asignaturas")'"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nueva Asignatura </button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div>
+        <p><button type="button" class="btn btn-default btn-md" onclick="location.href='@Url.Action("MenuAsignaturas", "MenuAsignaturas")'"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span> Volver </button></p>
+    </div>
+</div>

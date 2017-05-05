@@ -17,21 +17,7 @@ namespace Laboratorio1IngSw.Controllers
         }
         public ActionResult UploadPdf()
         {
-            TestPlataformaEntities modelo = new TestPlataformaEntities();
-
-            var consulta = modelo.Grado.Select(c => new SelectListItem
-            {
-                Value = c.IDGrado.ToString(),
-                Text = c.Descripcion,
-                Selected = c.IDGrado.Equals(1)  
-            });
-
-            var grados = new SelectPdfViewModel
-            {
-                ListaGrados = consulta.AsEnumerable()
-            };
-
-            return PartialView(grados);
+            return View();
         }
 
         [HttpPost]
