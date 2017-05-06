@@ -119,6 +119,10 @@ namespace Laboratorio1IngSw.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult UploadPdf(int idtema)
+        {
+            return RedirectToAction("UploadPdf", "UploadPdf", idtema);
+        }
 
         protected override void Dispose(bool disposing)
         {

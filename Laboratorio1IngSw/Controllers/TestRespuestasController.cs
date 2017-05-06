@@ -17,7 +17,7 @@ namespace Laboratorio1IngSw.Controllers
         // GET: TestRespuestas
         public ActionResult Index()
         {
-            var testRespuestas = db.TestRespuestas.Include(t => t.TestTemas);
+            var testRespuestas = db.TestRespuestas.Include(t => t.TestPreguntas);
             return View(testRespuestas.ToList());
         }
 
@@ -39,7 +39,7 @@ namespace Laboratorio1IngSw.Controllers
         // GET: TestRespuestas/Create
         public ActionResult Create()
         {
-            ViewBag.IDTest = new SelectList(db.TestTemas, "IDTest", "Descripcion");
+            ViewBag.IDPregunta = new SelectList(db.TestPreguntas, "IDPregunta", "Descripcion");
             return View();
         }
 
@@ -48,7 +48,7 @@ namespace Laboratorio1IngSw.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDTestRespuestas,IDTest,Descripcion,Orden,Correcta")] TestRespuestas testRespuestas)
+        public ActionResult Create([Bind(Include = "IDTestRespuestas,IDTest,Descripcion,Orden,Correcta,IDPregunta")] TestRespuestas testRespuestas)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +57,7 @@ namespace Laboratorio1IngSw.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IDTest = new SelectList(db.TestTemas, "IDTest", "Descripcion", testRespuestas.IDTest);
+            ViewBag.IDPregunta = new SelectList(db.TestPreguntas, "IDPregunta", "Descripcion", testRespuestas.IDPregunta);
             return View(testRespuestas);
         }
 
@@ -73,7 +73,7 @@ namespace Laboratorio1IngSw.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IDTest = new SelectList(db.TestTemas, "IDTest", "Descripcion", testRespuestas.IDTest);
+            ViewBag.IDPregunta = new SelectList(db.TestPreguntas, "IDPregunta", "Descripcion", testRespuestas.IDPregunta);
             return View(testRespuestas);
         }
 
@@ -82,7 +82,7 @@ namespace Laboratorio1IngSw.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDTestRespuestas,IDTest,Descripcion,Orden,Correcta")] TestRespuestas testRespuestas)
+        public ActionResult Edit([Bind(Include = "IDTestRespuestas,IDTest,Descripcion,Orden,Correcta,IDPregunta")] TestRespuestas testRespuestas)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace Laboratorio1IngSw.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IDTest = new SelectList(db.TestTemas, "IDTest", "Descripcion", testRespuestas.IDTest);
+            ViewBag.IDPregunta = new SelectList(db.TestPreguntas, "IDPregunta", "Descripcion", testRespuestas.IDPregunta);
             return View(testRespuestas);
         }
 

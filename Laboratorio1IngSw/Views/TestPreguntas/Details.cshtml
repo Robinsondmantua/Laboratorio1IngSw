@@ -1,4 +1,4 @@
-﻿@model Laboratorio1IngSw.Models.DB.TestTemas
+﻿@model Laboratorio1IngSw.Models.DB.TestPreguntas
 
 @{
     ViewBag.Title = "Details";
@@ -8,7 +8,7 @@
 <h2>Details</h2>
 
 <div>
-    <h4>TestTemas</h4>
+    <h4>TestPreguntas</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -20,24 +20,16 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Orden)
+            @Html.DisplayNameFor(model => model.Test.IDTest)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Orden)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Temas.Descripcion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Temas.Descripcion)
+            @Html.DisplayFor(model => model.Test.IDTest)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IDTest }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDPregunta }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

@@ -1,0 +1,34 @@
+﻿@model PagedList.IPagedList<Laboratorio1IngSw.Models.DB.TestPreguntas>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Previsualizar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Previsualizar test </h2>
+
+<div>
+    <h4>TestTemas</h4>
+    <hr />
+    @using (Html.BeginForm("Previsualizar", "PrevisualizarPdf", FormMethod.Get))
+    {
+        foreach (var item in Model)
+        {
+            <dl class="dl-horizontal">
+                <dt>
+                    Html.DisplayNameFor(model => item.Descripcion)
+                </dt>
+
+                <dd>
+                    Html.DisplayFor(model => item.Descripcion)
+                </dd>
+            </dl>
+        }
+    }
+</div>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

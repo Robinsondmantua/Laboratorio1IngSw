@@ -12,21 +12,19 @@ namespace Laboratorio1IngSw.Models.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class TestTemas
+    public partial class Test
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TestTemas()
+        public Test()
         {
-            this.TestRespuestas = new HashSet<TestRespuestas>();
+            this.TestPreguntas = new HashSet<TestPreguntas>();
         }
     
         public int IDTest { get; set; }
         public Nullable<int> IDTema { get; set; }
-        public string Descripcion { get; set; }
-        public Nullable<short> Orden { get; set; }
     
-        public virtual Temas Temas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TestRespuestas> TestRespuestas { get; set; }
+        public virtual ICollection<TestPreguntas> TestPreguntas { get; set; }
+        public virtual Temas Temas { get; set; }
     }
 }

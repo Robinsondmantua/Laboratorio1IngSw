@@ -53,11 +53,20 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -143,9 +152,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenuAdministracionController.cs" />
     <Compile Include="Controllers\MenuAsignaturasController.cs" />
+    <Compile Include="Controllers\PrevisualizarPdfController.cs" />
     <Compile Include="Controllers\TemasController.cs" />
+    <Compile Include="Controllers\TestPreguntasController.cs" />
     <Compile Include="Controllers\TestRespuestasController.cs" />
-    <Compile Include="Controllers\TestTemasController.cs" />
     <Compile Include="Controllers\UploadPdfController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -154,6 +164,12 @@
       <DependentUpon>UnirTest.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DB\Grado.cs">
+      <DependentUpon>UnirTest.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DB\Test.cs">
+      <DependentUpon>UnirTest.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DB\TestPreguntas.cs">
       <DependentUpon>UnirTest.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityManager\SelectPdfViewModel.cs" />
@@ -165,9 +181,6 @@
       <DependentUpon>UnirTest.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DB\TestRespuestas.cs">
-      <DependentUpon>UnirTest.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DB\TestTemas.cs">
       <DependentUpon>UnirTest.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DB\UnirTest.Context.cs">
@@ -194,6 +207,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -257,21 +271,21 @@
     <Content Include="Views\Temas\Details.cshtml" />
     <Content Include="Views\Temas\Edit.cshtml" />
     <Content Include="Views\Temas\Index.cshtml" />
-    <Content Include="Views\TestTemas\Create.cshtml" />
-    <Content Include="Views\TestTemas\Delete.cshtml" />
-    <Content Include="Views\TestTemas\Details.cshtml" />
-    <Content Include="Views\TestTemas\Edit.cshtml" />
-    <Content Include="Views\TestTemas\Index.cshtml" />
+    <Content Include="Views\UploadPdf\UploadPdf.cshtml" />
+    <Content Include="Views\PrevisualizarPdf\Previsualizar.cshtml" />
+    <Content Include="Views\TestPreguntas\Create.cshtml" />
+    <Content Include="Views\TestPreguntas\Delete.cshtml" />
+    <Content Include="Views\TestPreguntas\Details.cshtml" />
+    <Content Include="Views\TestPreguntas\Edit.cshtml" />
+    <Content Include="Views\TestPreguntas\Index.cshtml" />
     <Content Include="Views\TestRespuestas\Create.cshtml" />
     <Content Include="Views\TestRespuestas\Delete.cshtml" />
     <Content Include="Views\TestRespuestas\Details.cshtml" />
     <Content Include="Views\TestRespuestas\Edit.cshtml" />
     <Content Include="Views\TestRespuestas\Index.cshtml" />
-    <Content Include="Views\UploadPdf\UploadPdf.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\AsociarPdfTema\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

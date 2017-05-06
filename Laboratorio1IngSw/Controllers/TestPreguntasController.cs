@@ -10,112 +10,112 @@ using Laboratorio1IngSw.Models.DB;
 
 namespace Laboratorio1IngSw.Controllers
 {
-    public class TestTemasController : Controller
+    public class TestPreguntasController : Controller
     {
         private TestPlataformaEntities db = new TestPlataformaEntities();
 
-        // GET: TestTemas
+        // GET: TestPreguntas
         public ActionResult Index()
         {
-            var testTemas = db.TestTemas.Include(t => t.Temas);
-            return View(testTemas.ToList());
+            var testPreguntas = db.TestPreguntas.Include(t => t.Test);
+            return View(testPreguntas.ToList());
         }
 
-        // GET: TestTemas/Details/5
+        // GET: TestPreguntas/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TestTemas testTemas = db.TestTemas.Find(id);
-            if (testTemas == null)
+            TestPreguntas testPreguntas = db.TestPreguntas.Find(id);
+            if (testPreguntas == null)
             {
                 return HttpNotFound();
             }
-            return View(testTemas);
+            return View(testPreguntas);
         }
 
-        // GET: TestTemas/Create
+        // GET: TestPreguntas/Create
         public ActionResult Create()
         {
-            ViewBag.IDTema = new SelectList(db.Temas, "IDTema", "Descripcion");
+            ViewBag.IDTest = new SelectList(db.Test, "IDTest", "IDTest");
             return View();
         }
 
-        // POST: TestTemas/Create
+        // POST: TestPreguntas/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDTest,IDTema,Descripcion,Orden")] TestTemas testTemas)
+        public ActionResult Create([Bind(Include = "IDPregunta,IDTest,Descripcion")] TestPreguntas testPreguntas)
         {
             if (ModelState.IsValid)
             {
-                db.TestTemas.Add(testTemas);
+                db.TestPreguntas.Add(testPreguntas);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IDTema = new SelectList(db.Temas, "IDTema", "Descripcion", testTemas.IDTema);
-            return View(testTemas);
+            ViewBag.IDTest = new SelectList(db.Test, "IDTest", "IDTest", testPreguntas.IDTest);
+            return View(testPreguntas);
         }
 
-        // GET: TestTemas/Edit/5
+        // GET: TestPreguntas/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TestTemas testTemas = db.TestTemas.Find(id);
-            if (testTemas == null)
+            TestPreguntas testPreguntas = db.TestPreguntas.Find(id);
+            if (testPreguntas == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.IDTema = new SelectList(db.Temas, "IDTema", "Descripcion", testTemas.IDTema);
-            return View(testTemas);
+            ViewBag.IDTest = new SelectList(db.Test, "IDTest", "IDTest", testPreguntas.IDTest);
+            return View(testPreguntas);
         }
 
-        // POST: TestTemas/Edit/5
+        // POST: TestPreguntas/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDTest,IDTema,Descripcion,Orden")] TestTemas testTemas)
+        public ActionResult Edit([Bind(Include = "IDPregunta,IDTest,Descripcion")] TestPreguntas testPreguntas)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(testTemas).State = EntityState.Modified;
+                db.Entry(testPreguntas).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IDTema = new SelectList(db.Temas, "IDTema", "Descripcion", testTemas.IDTema);
-            return View(testTemas);
+            ViewBag.IDTest = new SelectList(db.Test, "IDTest", "IDTest", testPreguntas.IDTest);
+            return View(testPreguntas);
         }
 
-        // GET: TestTemas/Delete/5
+        // GET: TestPreguntas/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TestTemas testTemas = db.TestTemas.Find(id);
-            if (testTemas == null)
+            TestPreguntas testPreguntas = db.TestPreguntas.Find(id);
+            if (testPreguntas == null)
             {
                 return HttpNotFound();
             }
-            return View(testTemas);
+            return View(testPreguntas);
         }
 
-        // POST: TestTemas/Delete/5
+        // POST: TestPreguntas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            TestTemas testTemas = db.TestTemas.Find(id);
-            db.TestTemas.Remove(testTemas);
+            TestPreguntas testPreguntas = db.TestPreguntas.Find(id);
+            db.TestPreguntas.Remove(testPreguntas);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

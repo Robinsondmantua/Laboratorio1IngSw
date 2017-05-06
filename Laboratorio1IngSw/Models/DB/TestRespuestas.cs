@@ -15,11 +15,11 @@ namespace Laboratorio1IngSw.Models.DB
     public partial class TestRespuestas
     {
         public int IDTestRespuestas { get; set; }
-        public Nullable<int> IDTest { get; set; }
+        public Nullable<int> IDPregunta { get; set; }
         public string Descripcion { get; set; }
         public Nullable<short> Orden { get; set; }
         public Nullable<bool> Correcta { get; set; }
     
-        public virtual TestTemas TestTemas { get; set; }
+        public virtual TestPreguntas TestPreguntas { get; set; }
     }
 }

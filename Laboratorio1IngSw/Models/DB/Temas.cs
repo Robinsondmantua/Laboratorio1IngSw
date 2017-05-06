@@ -17,7 +17,7 @@ namespace Laboratorio1IngSw.Models.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Temas()
         {
-            this.TestTemas = new HashSet<TestTemas>();
+            this.Test = new HashSet<Test>();
         }
     
         public int IDTema { get; set; }
@@ -26,6 +26,6 @@ namespace Laboratorio1IngSw.Models.DB
     
         public virtual Asignaturas Asignaturas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TestTemas> TestTemas { get; set; }
+        public virtual ICollection<Test> Test { get; set; }
     }
 }
