@@ -51,7 +51,7 @@
           <Property Name="IDPregunta" Type="int" />
           <Property Name="Descripcion" Type="varchar" MaxLength="255" />
           <Property Name="Orden" Type="smallint" />
-          <Property Name="Correcta" Type="bit" />
+          <Property Name="Correcta" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -161,7 +161,6 @@
           <EntitySet Name="RolesUsuario" EntityType="TestPlataformaModel.RolesUsuario" />
           <EntitySet Name="Temas" EntityType="TestPlataformaModel.Temas" />
           <EntitySet Name="TestPreguntas" EntityType="TestPlataformaModel.TestPreguntas" />
-          <EntitySet Name="TestRespuestas" EntityType="TestPlataformaModel.TestRespuestas" />
           <EntitySet Name="Usuarios" EntityType="TestPlataformaModel.Usuarios" />
           <AssociationSet Name="FK_Asignaturas_Grado" Association="TestPlataformaModel.FK_Asignaturas_Grado">
             <End Role="Grado" EntitySet="Grado" />
@@ -179,6 +178,7 @@
             <End Role="Temas" EntitySet="Temas" />
             <End Role="TestPreguntas" EntitySet="TestPreguntas" />
           </AssociationSet>
+          <EntitySet Name="TestRespuestas" EntityType="TestPlataformaModel.TestRespuestas" />
           <AssociationSet Name="FK_TestRespuestas_TestPreguntas" Association="TestPlataformaModel.FK_TestRespuestas_TestPreguntas">
             <End Role="TestPreguntas" EntitySet="TestPreguntas" />
             <End Role="TestRespuestas" EntitySet="TestRespuestas" />
@@ -229,17 +229,6 @@
           <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Temas" Relationship="TestPlataformaModel.FK_TestPreguntas_Temas" FromRole="TestPreguntas" ToRole="Temas" />
           <NavigationProperty Name="TestRespuestas" Relationship="TestPlataformaModel.FK_TestRespuestas_TestPreguntas" FromRole="TestPreguntas" ToRole="TestRespuestas" />
-        </EntityType>
-        <EntityType Name="TestRespuestas">
-          <Key>
-            <PropertyRef Name="IDTestRespuestas" />
-          </Key>
-          <Property Name="IDTestRespuestas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IDPregunta" Type="Int32" />
-          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Orden" Type="Int16" />
-          <Property Name="Correcta" Type="Boolean" />
-          <NavigationProperty Name="TestPreguntas" Relationship="TestPlataformaModel.FK_TestRespuestas_TestPreguntas" FromRole="TestRespuestas" ToRole="TestPreguntas" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -299,6 +288,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TestRespuestas">
+          <Key>
+            <PropertyRef Name="IDTestRespuestas" />
+          </Key>
+          <Property Name="IDTestRespuestas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDPregunta" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Orden" Type="Int16" />
+          <Property Name="Correcta" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TestPreguntas" Relationship="TestPlataformaModel.FK_TestRespuestas_TestPreguntas" FromRole="TestRespuestas" ToRole="TestPreguntas" />
+        </EntityType>
         <Association Name="FK_TestRespuestas_TestPreguntas">
           <End Type="TestPlataformaModel.TestPreguntas" Role="TestPreguntas" Multiplicity="0..1" />
           <End Type="TestPlataformaModel.TestRespuestas" Role="TestRespuestas" Multiplicity="*" />
@@ -360,6 +360,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="TestPlataformaModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IDRol" ColumnName="IDRol" />
+                <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TestRespuestas">
             <EntityTypeMapping TypeName="TestPlataformaModel.TestRespuestas">
               <MappingFragment StoreEntitySet="TestRespuestas">
@@ -368,16 +378,6 @@
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="IDPregunta" ColumnName="IDPregunta" />
                 <ScalarProperty Name="IDTestRespuestas" ColumnName="IDTestRespuestas" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Usuarios">
-            <EntityTypeMapping TypeName="TestPlataformaModel.Usuarios">
-              <MappingFragment StoreEntitySet="Usuarios">
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="IDRol" ColumnName="IDRol" />
-                <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

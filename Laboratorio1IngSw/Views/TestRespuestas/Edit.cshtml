@@ -16,12 +16,11 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.IDTestRespuestas)
-
         <div class="form-group">
-            @Html.LabelFor(model => model.IDTestRespuestas, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.IDPregunta, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.IDTestRespuestas, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IDTestRespuestas, "", new { @class = "text-danger" })
+                @Html.DropDownList("IDPregunta", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IDPregunta, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -45,17 +44,9 @@
             @Html.LabelFor(model => model.Correcta, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.Correcta)
+                    @Html.CheckBoxFor(model => model.Correcta)
                     @Html.ValidationMessageFor(model => model.Correcta, "", new { @class = "text-danger" })
                 </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IDPregunta, "IDPregunta", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("IDPregunta", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IDPregunta, "", new { @class = "text-danger" })
             </div>
         </div>
 

@@ -30,7 +30,7 @@ namespace Laboratorio1IngSw.Models.DB
         public virtual DbSet<RolesUsuario> RolesUsuario { get; set; }
         public virtual DbSet<Temas> Temas { get; set; }
         public virtual DbSet<TestPreguntas> TestPreguntas { get; set; }
-        public virtual DbSet<TestRespuestas> TestRespuestas { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
+        public virtual DbSet<TestRespuestas> TestRespuestas { get; set; }
     }
 }

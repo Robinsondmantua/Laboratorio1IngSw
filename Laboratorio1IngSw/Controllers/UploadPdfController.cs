@@ -70,7 +70,7 @@ namespace Laboratorio1IngSw.Controllers
 
                                     for (int bloque = 0, lenpreguntas = lineaspdfdefinitivo.Count; bloque < lenpreguntas; bloque++)
                                     {
-                                        var preguntaslst = Regex.Split(lineaspdfdefinitivo[bloque], @"([:][\s]*[\s+][\s+/g[A-Z][\.]|[\.][\s][A-Z][\.])", RegexOptions.ExplicitCapture);
+                                        var preguntaslst = Regex.Split(lineaspdfdefinitivo[bloque], @"([:][\s]*[\s+][\s+/g[A-Z][\.]|[\.][\s]*[A-Z][\.])", RegexOptions.ExplicitCapture);
 
                                         if (preguntaslst.Count() > 0)
                                         {

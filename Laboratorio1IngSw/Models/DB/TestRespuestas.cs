@@ -26,7 +26,7 @@ namespace Laboratorio1IngSw.Models.DB
         [Required(ErrorMessage = "* Campo obligatorio")]
         public Nullable<short> Orden { get; set; }
         [Display(Name = "¿Es correcta la respuesta?")]
-        public Nullable<bool> Correcta { get; set; }
+        public bool Correcta { get; set; }
     
         public virtual TestPreguntas TestPreguntas { get; set; }
     }

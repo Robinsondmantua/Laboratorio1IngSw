@@ -10,12 +10,12 @@
         <EntityTypeShape EntityType="TestPlataformaModel.RolesUsuario" Width="1.5" PointX="0.75" PointY="5.125" />
         <EntityTypeShape EntityType="TestPlataformaModel.Temas" Width="1.5" PointX="5.25" PointY="1" />
         <EntityTypeShape EntityType="TestPlataformaModel.TestPreguntas" Width="1.5" PointX="7.5" PointY="1" />
-        <EntityTypeShape EntityType="TestPlataformaModel.TestRespuestas" Width="1.5" PointX="9.75" PointY="0.875" />
         <EntityTypeShape EntityType="TestPlataformaModel.Usuarios" Width="1.5" PointX="3" PointY="4.875" />
         <AssociationConnector Association="TestPlataformaModel.FK_Asignaturas_Grado" />
         <AssociationConnector Association="TestPlataformaModel.FK_Temas_Asignaturas" />
         <AssociationConnector Association="TestPlataformaModel.FK_Usuarios_RolesUsuario" />
         <AssociationConnector Association="TestPlataformaModel.FK_TestPreguntas_Temas" />
+        <EntityTypeShape EntityType="TestPlataformaModel.TestRespuestas" Width="1.5" PointX="9.75" PointY="0.875" />
         <AssociationConnector Association="TestPlataformaModel.FK_TestRespuestas_TestPreguntas" />
       </Diagram>
     </edmx:Diagrams>
