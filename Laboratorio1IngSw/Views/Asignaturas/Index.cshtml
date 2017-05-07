@@ -1,5 +1,5 @@
-﻿@model IEnumerable<Laboratorio1IngSw.Models.DB.Asignaturas>
-
+﻿@model PagedList.IPagedList<Laboratorio1IngSw.Models.DB.Asignaturas>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,6 +7,8 @@
 
 <h2>Gestión de Asignaturas</h2>
 
+@using (Html.BeginForm("Index", "Asignaturas", FormMethod.Get))
+{ 
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-12 column">
@@ -14,10 +16,10 @@
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.Descripcion)
+                            Asignatura
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Grado.Descripcion)
+                            Grado
                         </th>
                         <th>Editar</th>
                         <th>Borrar</th>
@@ -56,3 +58,8 @@
         <p><button type="button" class="btn btn-default btn-md" onclick="location.href='@Url.Action("MenuAsignaturas", "MenuAsignaturas")'"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span> Volver </button></p>
     </div>
 </div>
+}
+<br />
+Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

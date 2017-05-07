@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "MenuAsignaturas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Asignaturas</h2>
+            <p>Alta, baja, modificación y borrado de las asignaturas del grado.</p>
+            <p><button type="button" class="btn btn-default btn-md" onclick="location.href='@Url.Action("Index", "Asignaturas", new { page = 1 })'"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Configurar </button></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Temas</h2>
+            <p>Alta, baja, modificación y borrado de los temas por asignatura del grado.</p>
+            <p><button type="button" class="btn btn-default btn-md" onclick="location.href='@Url.Action("Index", "Temas", new { page = 1 })'"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Configurar </button></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Preguntas</h2>
+            <p>Alta, baja, modificación y borrado de las preguntas de los test por cada tema de asignatura del grado.</p>
+            <p><button type="button" class="btn btn-default btn-md" onclick="location.href='@Url.Action("Index", "TestPreguntas", new { page = 1 })'"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Configurar </button></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Respuestas</h2>
+            <p>Alta, baja, modificación y borrado de las respuestas a los test de los temas por asignatura del grado.</p>
+            <p><button type="button" class="btn btn-default btn-md" onclick="location.href='@Url.Action("Index", "TestRespuestas",new { page = 1})'"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Configurar </button></p>
+        </div>
+    </div>
+</div>
+

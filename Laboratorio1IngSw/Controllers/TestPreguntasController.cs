@@ -7,21 +7,25 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Laboratorio1IngSw.Models.DB;
+using PagedList;
 
 namespace Laboratorio1IngSw.Controllers
 {
+    [Authorize]
     public class TestPreguntasController : Controller
     {
         private TestPlataformaEntities db = new TestPlataformaEntities();
 
         // GET: TestPreguntas
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var testPreguntas = db.TestPreguntas.Include(t => t.Test);
-            return View(testPreguntas.ToList());
+            var temas = db.TestPreguntas.Include(t => t.Test).Include(tema =>tema.Test.Temas).OrderBy(x => x.IDTest);
+            int pageSize = 8;
+            int pageNumber = (page ?? 1);
+            return View(temas.ToPagedList(pageNumber, pageSize));
         }
-
         // GET: TestPreguntas/Details/5
+
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +41,7 @@ namespace Laboratorio1IngSw.Controllers
         }
 
         // GET: TestPreguntas/Create
+
         public ActionResult Create()
         {
             ViewBag.IDTest = new SelectList(db.Test, "IDTest", "IDTest");
@@ -48,6 +53,7 @@ namespace Laboratorio1IngSw.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public ActionResult Create([Bind(Include = "IDPregunta,IDTest,Descripcion")] TestPreguntas testPreguntas)
         {
             if (ModelState.IsValid)
@@ -62,6 +68,8 @@ namespace Laboratorio1IngSw.Controllers
         }
 
         // GET: TestPreguntas/Edit/5
+
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -82,6 +90,7 @@ namespace Laboratorio1IngSw.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public ActionResult Edit([Bind(Include = "IDPregunta,IDTest,Descripcion")] TestPreguntas testPreguntas)
         {
             if (ModelState.IsValid)
@@ -95,6 +104,7 @@ namespace Laboratorio1IngSw.Controllers
         }
 
         // GET: TestPreguntas/Delete/5
+
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -112,6 +122,7 @@ namespace Laboratorio1IngSw.Controllers
         // POST: TestPreguntas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+
         public ActionResult DeleteConfirmed(int id)
         {
             TestPreguntas testPreguntas = db.TestPreguntas.Find(id);

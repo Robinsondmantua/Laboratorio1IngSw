@@ -5,55 +5,59 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Detalle de la Respuesta </h2>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.IDTestRespuestas)
+                </dt>
 
-<div>
-    <h4>TestRespuestas</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.IDTest)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.IDTestRespuestas)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.IDTest)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Descripcion)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Descripcion)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Orden)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Orden)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Orden)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Orden)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Correcta)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Correcta)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Correcta)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Correcta)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.TestPreguntas.Descripcion)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TestPreguntas.Descripcion)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.TestPreguntas.Descripcion)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.TestPreguntas.Descripcion)
-        </dd>
-
-    </dl>
+            </dl>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IDTestRespuestas }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div>
+    <p>
+        <button type="button" class="btn btn-default btn-md" onclick="location.href='@Url.Action("Edit", "TestRespuestas", new { id = Model.IDTestRespuestas})'"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar </button>
+        <button type="button" class="btn btn-default btn-md" onclick="location.href='@Url.Action("Index", "TestRespuestas")'"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span> Volver </button>
+    </p>
+</div>
+

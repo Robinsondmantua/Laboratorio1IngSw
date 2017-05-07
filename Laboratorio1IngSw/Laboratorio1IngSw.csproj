@@ -172,15 +172,15 @@
     <Compile Include="Models\DB\TestPreguntas.cs">
       <DependentUpon>UnirTest.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DB\TestRespuestas.cs">
+      <DependentUpon>UnirTest.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EntityManager\SelectPdfViewModel.cs" />
     <Compile Include="Models\EntityManager\UserManager.cs" />
     <Compile Include="Models\DB\RolesUsuario.cs">
       <DependentUpon>UnirTest.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DB\Temas.cs">
-      <DependentUpon>UnirTest.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DB\TestRespuestas.cs">
       <DependentUpon>UnirTest.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DB\UnirTest.Context.cs">

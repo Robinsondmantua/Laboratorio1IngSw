@@ -2,4 +2,9 @@
     <div class="container">
         <h1 class="display-3">Grado de Ingeniería Informática - Test</h1>
     </div>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="pull-right"><button type="button" class="btn btn-default btn-md" onclick="location.href='@Url.Action("SignOut", "Account")'"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Cerrar Sesión </button></div>
+    }
+
 </div>

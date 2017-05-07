@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Laboratorio1IngSw.Controllers
 {
+    [Authorize]
     public class PrevisualizarPdfController : Controller
     {
         // GET: PrevisualizarPdf

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Laboratorio1IngSw.Models.DB;
+using PagedList;
 
 namespace Laboratorio1IngSw.Controllers
 {
@@ -15,13 +16,17 @@ namespace Laboratorio1IngSw.Controllers
         private TestPlataformaEntities db = new TestPlataformaEntities();
 
         // GET: Asignaturas
-        public ActionResult Index()
+
+        public ActionResult Index(int? page)
         {
-            var asignaturas = db.Asignaturas.Include(a => a.Grado);
-            return View(asignaturas.ToList());
+            var asignaturas = db.Asignaturas.Include(a => a.Grado).OrderBy(x => x.IDAsignatura);
+            int pageSize = 8;
+            int pageNumber = (page ?? 1);
+            return View(asignaturas.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Asignaturas/Details/5
+
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +42,7 @@ namespace Laboratorio1IngSw.Controllers
         }
 
         // GET: Asignaturas/Create
+
         public ActionResult Create()
         {
             ViewBag.IDGrado = new SelectList(db.Grado, "IDGrado", "Descripcion");
@@ -46,6 +52,7 @@ namespace Laboratorio1IngSw.Controllers
         // POST: Asignaturas/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IDAsignatura,IDGrado,Descripcion")] Asignaturas asignaturas)
@@ -62,6 +69,7 @@ namespace Laboratorio1IngSw.Controllers
         }
 
         // GET: Asignaturas/Edit/5
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -82,6 +90,7 @@ namespace Laboratorio1IngSw.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public ActionResult Edit([Bind(Include = "IDAsignatura,IDGrado,Descripcion")] Asignaturas asignaturas)
         {
             if (ModelState.IsValid)
@@ -95,6 +104,7 @@ namespace Laboratorio1IngSw.Controllers
         }
 
         // GET: Asignaturas/Delete/5
+
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -112,6 +122,7 @@ namespace Laboratorio1IngSw.Controllers
         // POST: Asignaturas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+
         public ActionResult DeleteConfirmed(int id)
         {
             Asignaturas asignaturas = db.Asignaturas.Find(id);

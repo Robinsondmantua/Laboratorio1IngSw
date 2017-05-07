@@ -9,7 +9,7 @@ namespace Laboratorio1IngSw.Controllers
     public class MenuAsignaturasController : Controller
     {
         // GET: MenuAsignaturas
-        [AllowAnonymous]
+        [Authorize]
         public ActionResult MenuAsignaturas()
         {
             return View();

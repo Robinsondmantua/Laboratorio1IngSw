@@ -12,107 +12,111 @@ using System.Web.Mvc;
 
 namespace Laboratorio1IngSw.Controllers
 {
+    [Authorize]
     public class UploadPdfController : Controller
     {
         private TestPlataformaEntities Db = new TestPlataformaEntities();
         // GET: UploadPdf
-        public ActionResult UploadPdf(int? idtema)
+        public ActionResult UploadPdf(int id)
         {
-            return View();
+            var temas = Db.Temas.Find(id);
+            return View(temas);
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UploadPdf(HttpPostedFileBase file, int? idtema)
+        public ActionResult UploadPdf(HttpPostedFileBase file, int IDTema)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (file.ContentLength > 0)
+                ViewBag.DatosGrabados = false;
+                try
                 {
-
-                    using (TransactionScope t = new TransactionScope())
+                    if (file.ContentLength > 0)
                     {
-                        try
+
+                        using (TransactionScope t = new TransactionScope())
                         {
-                            PdfReader pdf = new PdfReader(file.InputStream);
-                            List<string> lineaspdfparcial = new List<string>();
-                            List<string> lineaspdfdefinitivo = new List<string>();
-
-                            Test test = new Test();
-                            test.IDTema = idtema;
-
-                            var temascontest = Db.Test.Where(o => o.IDTema == test.IDTema);
-                            if (temascontest.Any())
+                            try
                             {
-                                //Ya existe un test para este tema. Hay que eliminarlo primero.
-                            }
+                                PdfReader pdf = new PdfReader(file.InputStream);
+                                List<string> lineaspdfparcial = new List<string>();
+                                List<string> lineaspdfdefinitivo = new List<string>();
 
-                            Db.Test.Add(test);
-                            Db.SaveChanges();
-                            int idTest = test.IDTest;
+                                Test test = new Test();
+                                test.IDTema = IDTema;
 
-                            for (int pagina = 1; pagina <= pdf.NumberOfPages; pagina++)
-                            {
-                                ITextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
-                                string textoPagina = PdfTextExtractor.GetTextFromPage(pdf, pagina, strategy);
-                                textoPagina = Regex.Replace(textoPagina, @"\t|\n|\r", "");
-
-                                if (textoPagina.Contains("– Test"))
+                                var temascontest = Db.Test.Where(o => o.IDTema == test.IDTema);
+                                if (temascontest.Any())
                                 {
-                                    lineaspdfparcial = Regex.Split(textoPagina, @"[\d]{1,2}[\.]", RegexOptions.None).ToList();
-                                    lineaspdfparcial.RemoveAt(0);
-                                    lineaspdfdefinitivo.AddRange(lineaspdfparcial);
+                                    //Ya existe un test para este tema. Hay que eliminarlo primero.
                                 }
-                            }
-                            pdf.Close();
 
-                            for (int bloque = 0, lenpreguntas = lineaspdfdefinitivo.Count; bloque < lenpreguntas; bloque++)
-                            {
-                                var preguntaslst = Regex.Split(lineaspdfdefinitivo[bloque], @"([:][\s]*[\s+][\s+/g[A-Z][\.]|[\.][\s][A-Z][\.])", RegexOptions.ExplicitCapture);
+                                Db.Test.Add(test);
+                                Db.SaveChanges();
+                                int idTest = test.IDTest;
 
-                                if (preguntaslst.Count() > 0)
+                                for (int pagina = 1; pagina <= pdf.NumberOfPages; pagina++)
                                 {
-                                    TestPreguntas pregunta = new TestPreguntas();
-                                    pregunta.IDTest = idTest;
-                                    pregunta.Descripcion = preguntaslst.ToList().FirstOrDefault();
+                                    ITextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
+                                    string textoPagina = PdfTextExtractor.GetTextFromPage(pdf, pagina, strategy);
+                                    textoPagina = Regex.Replace(textoPagina, @"\t|\n|\r", "");
 
-                                    Db.TestPreguntas.Add(pregunta);
-                                    Db.SaveChanges();
-                                    int idPregunta = pregunta.IDPregunta;
-
-                                    short intOrden = 1;
-                                    List<TestRespuestas> respuestas = (from r in preguntaslst.Skip(1).Take(preguntaslst.Count())
-                                                                       select new TestRespuestas
-                                                                       {
-                                                                           IDPregunta = idPregunta,
-                                                                           Descripcion = r,
-                                                                           Orden = intOrden++,
-                                                                           Correcta = false
-                                                                       }).ToList();
-                                    foreach (TestRespuestas respuesta in respuestas)
+                                    if (textoPagina.Contains("– Test"))
                                     {
-                                        Db.TestRespuestas.Add(respuesta);
-                                        Db.SaveChanges();
+                                        lineaspdfparcial = Regex.Split(textoPagina, @"[\d]{1,2}[\.]", RegexOptions.None).ToList();
+                                        lineaspdfparcial.RemoveAt(0);
+                                        lineaspdfdefinitivo.AddRange(lineaspdfparcial);
                                     }
                                 }
+                                pdf.Close();
+
+                                for (int bloque = 0, lenpreguntas = lineaspdfdefinitivo.Count; bloque < lenpreguntas; bloque++)
+                                {
+                                    var preguntaslst = Regex.Split(lineaspdfdefinitivo[bloque], @"([:][\s]*[\s+][\s+/g[A-Z][\.]|[\.][\s][A-Z][\.])", RegexOptions.ExplicitCapture);
+
+                                    if (preguntaslst.Count() > 0)
+                                    {
+                                        TestPreguntas pregunta = new TestPreguntas();
+                                        pregunta.IDTest = idTest;
+                                        pregunta.Descripcion = preguntaslst.ToList().FirstOrDefault();
+
+                                        Db.TestPreguntas.Add(pregunta);
+                                        Db.SaveChanges();
+                                        int idPregunta = pregunta.IDPregunta;
+
+                                        short intOrden = 1;
+                                        List<TestRespuestas> respuestas = (from r in preguntaslst.Skip(1).Take(preguntaslst.Count())
+                                                                           select new TestRespuestas
+                                                                           {
+                                                                               IDPregunta = idPregunta,
+                                                                               Descripcion = r,
+                                                                               Orden = intOrden++,
+                                                                               Correcta = false
+                                                                           }).ToList();
+                                        foreach (TestRespuestas respuesta in respuestas)
+                                        {
+                                            Db.TestRespuestas.Add(respuesta);
+                                            Db.SaveChanges();
+                                        }
+                                    }
+                                }
+                                t.Complete();
+                                ViewBag.DatosGrabados = true;
                             }
-                            t.Complete();
-                            //Redireccionamos a la previsualición del pdf.
-                            return RedirectToAction("Previsualizar", "PrevisualizarPdf", test);
-                        }
-                        catch (Exception ex)
-                        {
-                            t.Dispose();
+                            catch (Exception ex)
+                            {
+                                t.Dispose();
+                            }
                         }
                     }
                 }
+                catch (Exception ex)
+                {
+                }
             }
-            catch (Exception ex)
-            {
-
-            }
-            return View();
+            return RedirectToAction("Index", "TestRespuestas");
         }
     }
 }

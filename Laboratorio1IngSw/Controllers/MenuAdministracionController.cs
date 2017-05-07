@@ -6,10 +6,10 @@ using System.Web.Mvc;
 
 namespace Laboratorio1IngSw.Controllers
 {
+    [Authorize]
     public class MenuAdministracionController : Controller
     {
         // GET: MenuAdministracion
-        [Authorize]
         public ActionResult MenuAdministracion()
         {
             return View();

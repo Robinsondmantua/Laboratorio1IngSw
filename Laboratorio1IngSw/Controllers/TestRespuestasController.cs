@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Laboratorio1IngSw.Models.DB;
+using PagedList;
 
 namespace Laboratorio1IngSw.Controllers
 {
@@ -15,10 +16,12 @@ namespace Laboratorio1IngSw.Controllers
         private TestPlataformaEntities db = new TestPlataformaEntities();
 
         // GET: TestRespuestas
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var testRespuestas = db.TestRespuestas.Include(t => t.TestPreguntas);
-            return View(testRespuestas.ToList());
+            var testRespuestas = db.TestRespuestas.Include(t => t.TestPreguntas).OrderBy (x=>x.IDPregunta);
+            int pageSize = 8;
+            int pageNumber = (page ?? 1);
+            return View(testRespuestas.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: TestRespuestas/Details/5

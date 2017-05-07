@@ -15,7 +15,6 @@ using System.Web.Security;
 
 namespace Laboratorio1IngSw.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
 
@@ -25,7 +24,7 @@ namespace Laboratorio1IngSw.Controllers
         [AllowAnonymous]
         public ActionResult LogIn()
         {
-            return View();
+           return View();
         }
 
         [HttpPost]
@@ -60,7 +59,8 @@ namespace Laboratorio1IngSw.Controllers
         public ActionResult SignOut()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
+            Session.Abandon();
+            return RedirectToAction("LogIn");
         }
 
     }
