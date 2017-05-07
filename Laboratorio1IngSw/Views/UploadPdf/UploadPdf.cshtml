@@ -3,6 +3,8 @@
     ViewBag.Title = "UploadPdf";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script type="text/javascript"
+        src="@Url.Content("~/Scripts/spin.min.js")"></script>
 <script type="text/javascript">
     $(function () {
 
@@ -27,7 +29,22 @@
 
             });
         });
-
+        $("#submitbtn").click(function () {
+            $("#loading").fadeIn();
+            var opts = {
+                lines: 12, // The number of lines to draw
+                length: 7, // The length of each line
+                width: 4, // The line thickness
+                radius: 10, // The radius of the inner circle
+                color: '#000', // #rgb or #rrggbb
+                speed: 1, // Rounds per second
+                trail: 60, // Afterglow percentage
+                shadow: false, // Whether to render a shadow
+                hwaccel: false // Whether to use hardware acceleration
+            };
+            var target = document.getElementById('loading');
+            var spinner = new Spinner(opts).spin(target);
+        });
     });
 </script>
 @using (Html.BeginForm("UploadPdf", "UploadPdf", new { IDTema = Model.IDTema}, FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -54,10 +71,17 @@
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <button type="submit" class="btn btn-default btn-md" ><span class="glyphicon glyphicon-import" aria-hidden="true"></span> Importar Pdf </button>
+            <button id="submitbtn" type="submit" class="btn btn-default btn-md" ><span class="glyphicon glyphicon-import" aria-hidden="true"></span> Importar Pdf </button>
             <button type="button" class="btn btn-default btn-md" onclick="location.href='@Url.Action("Index", "Temas")'"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span> Volver </button>
         </div>
         <br />
+    </div>
+    <div id="loading">
+        <div id="loadingcontent">
+            <p id="loadingspinner">
+                Importando los datos del pdf...
+            </p>
+        </div>
     </div>
     <script language='javascript' type='text/javascript'>
 		var datosgrabados = @ViewBag.DatosGrabados;
