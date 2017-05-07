@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Detalle de la Pregunta </h2>
+<h2>Detalle de la Pregunta @Html.DisplayFor(model => model.Descripcion) </h2>
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-12 column">
@@ -19,11 +19,11 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.Test.IDTest)
+                    @Html.DisplayNameFor(model => model.IDTema)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Test.IDTest)
+                    @Html.DisplayFor(model => model.IDTema)
                 </dd>
 
             </dl>

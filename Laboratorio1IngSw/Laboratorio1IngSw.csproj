@@ -166,9 +166,6 @@
     <Compile Include="Models\DB\Grado.cs">
       <DependentUpon>UnirTest.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DB\Test.cs">
-      <DependentUpon>UnirTest.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\DB\TestPreguntas.cs">
       <DependentUpon>UnirTest.tt</DependentUpon>
     </Compile>

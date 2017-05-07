@@ -11,7 +11,7 @@ namespace Laboratorio1IngSw.Models.DB
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class Grado
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,10 +19,12 @@ namespace Laboratorio1IngSw.Models.DB
         {
             this.Asignaturas = new HashSet<Asignaturas>();
         }
-    
+        [Display(Name = "Identificador Grado")]
+        [Editable(false)]
         public int IDGrado { get; set; }
+        [Display(Name = "Nombre del Grado")]
         public string Descripcion { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Asignaturas> Asignaturas { get; set; }
     }

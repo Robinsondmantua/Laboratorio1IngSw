@@ -11,7 +11,7 @@ namespace Laboratorio1IngSw.Models.DB
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class TestPreguntas
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,12 +19,16 @@ namespace Laboratorio1IngSw.Models.DB
         {
             this.TestRespuestas = new HashSet<TestRespuestas>();
         }
-    
+        [Display(Name = "Identificador Pregunta")]
+        [Editable(false)]
         public int IDPregunta { get; set; }
-        public Nullable<int> IDTest { get; set; }
+        [Display(Name = "Tema")]
+        public Nullable<int> IDTema { get; set; }
+        [Display(Name = "Descripción Pregunta")]
+        [Required(ErrorMessage = "* Campo obligatorio")]
         public string Descripcion { get; set; }
     
-        public virtual Test Test { get; set; }
+        public virtual Temas Temas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TestRespuestas> TestRespuestas { get; set; }
     }

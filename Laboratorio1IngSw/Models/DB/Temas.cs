@@ -11,21 +11,27 @@ namespace Laboratorio1IngSw.Models.DB
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class Temas
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Temas()
         {
-            this.Test = new HashSet<Test>();
+            this.TestPreguntas = new HashSet<TestPreguntas>();
         }
-    
+
+        [Display(Name = "Identificador Tema")]
+        [Editable(false)]
         public int IDTema { get; set; }
+        [Display(Name = "Asignatura")]
+        [Editable(false)]
         public Nullable<int> IDAsignatura { get; set; }
+        [Display(Name = "Nombre del Tema")]
+        [Required(ErrorMessage = "* Campo obligatorio")]
         public string Descripcion { get; set; }
-    
+
         public virtual Asignaturas Asignaturas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Test> Test { get; set; }
+        public virtual ICollection<TestPreguntas> TestPreguntas { get; set; }
     }
 }

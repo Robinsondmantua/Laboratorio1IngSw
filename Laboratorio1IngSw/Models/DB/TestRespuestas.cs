@@ -11,13 +11,21 @@ namespace Laboratorio1IngSw.Models.DB
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class TestRespuestas
     {
+        [Display(Name = "Identificador Respuesta")]
+        [Editable(false)]
         public int IDTestRespuestas { get; set; }
+        [Display(Name = "Identificador Pregunta")]
+        [Editable(false)]
         public Nullable<int> IDPregunta { get; set; }
+        [Display(Name = "Descripción Respuesta")]
+        [Required(ErrorMessage = "* Campo obligatorio")]
         public string Descripcion { get; set; }
+        [Required(ErrorMessage = "* Campo obligatorio")]
         public Nullable<short> Orden { get; set; }
+        [Display(Name = "¿Es correcta la respuesta?")]
         public Nullable<bool> Correcta { get; set; }
     
         public virtual TestPreguntas TestPreguntas { get; set; }

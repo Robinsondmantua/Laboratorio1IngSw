@@ -44,69 +44,67 @@ namespace Laboratorio1IngSw.Controllers
                                 List<string> lineaspdfparcial = new List<string>();
                                 List<string> lineaspdfdefinitivo = new List<string>();
 
-                                Test test = new Test();
-                                test.IDTema = IDTema;
-
-                                var temascontest = Db.Test.Where(o => o.IDTema == test.IDTema);
+                                var temascontest = Db.TestPreguntas.Where(o => o.IDTema == IDTema);
                                 if (temascontest.Any())
                                 {
-                                    //Ya existe un test para este tema. Hay que eliminarlo primero.
+                                    //Ya existe un test para este tema. Hay que eliminar las pregutnas
+                                    //asociadas al tema.
+                                    ModelState.AddModelError("", "Ya existe un tes asociado a este tema. Elimina las preguntas.");
                                 }
-
-                                Db.Test.Add(test);
-                                Db.SaveChanges();
-                                int idTest = test.IDTest;
-
-                                for (int pagina = 1; pagina <= pdf.NumberOfPages; pagina++)
+                                else
                                 {
-                                    ITextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
-                                    string textoPagina = PdfTextExtractor.GetTextFromPage(pdf, pagina, strategy);
-                                    textoPagina = Regex.Replace(textoPagina, @"\t|\n|\r", "");
-
-                                    if (textoPagina.Contains("– Test"))
+                                    for (int pagina = 1; pagina <= pdf.NumberOfPages; pagina++)
                                     {
-                                        lineaspdfparcial = Regex.Split(textoPagina, @"[\d]{1,2}[\.]", RegexOptions.None).ToList();
-                                        lineaspdfparcial.RemoveAt(0);
-                                        lineaspdfdefinitivo.AddRange(lineaspdfparcial);
-                                    }
-                                }
-                                pdf.Close();
+                                        ITextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
+                                        string textoPagina = PdfTextExtractor.GetTextFromPage(pdf, pagina, strategy);
+                                        textoPagina = Regex.Replace(textoPagina, @"\t|\n|\r", "");
 
-                                for (int bloque = 0, lenpreguntas = lineaspdfdefinitivo.Count; bloque < lenpreguntas; bloque++)
-                                {
-                                    var preguntaslst = Regex.Split(lineaspdfdefinitivo[bloque], @"([:][\s]*[\s+][\s+/g[A-Z][\.]|[\.][\s][A-Z][\.])", RegexOptions.ExplicitCapture);
-
-                                    if (preguntaslst.Count() > 0)
-                                    {
-                                        TestPreguntas pregunta = new TestPreguntas();
-                                        pregunta.IDTest = idTest;
-                                        pregunta.Descripcion = preguntaslst.ToList().FirstOrDefault();
-
-                                        Db.TestPreguntas.Add(pregunta);
-                                        Db.SaveChanges();
-                                        int idPregunta = pregunta.IDPregunta;
-
-                                        short intOrden = 1;
-                                        List<TestRespuestas> respuestas = (from r in preguntaslst.Skip(1).Take(preguntaslst.Count())
-                                                                           select new TestRespuestas
-                                                                           {
-                                                                               IDPregunta = idPregunta,
-                                                                               Descripcion = r,
-                                                                               Orden = intOrden++,
-                                                                               Correcta = false
-                                                                           }).ToList();
-                                        foreach (TestRespuestas respuesta in respuestas)
+                                        if (textoPagina.Contains("– Test"))
                                         {
-                                            Db.TestRespuestas.Add(respuesta);
-                                            Db.SaveChanges();
+                                            lineaspdfparcial = Regex.Split(textoPagina, @"[\d]{1,2}[\.]", RegexOptions.None).ToList();
+                                            lineaspdfparcial.RemoveAt(0);
+                                            lineaspdfdefinitivo.AddRange(lineaspdfparcial);
                                         }
                                     }
+                                    pdf.Close();
+
+                                    for (int bloque = 0, lenpreguntas = lineaspdfdefinitivo.Count; bloque < lenpreguntas; bloque++)
+                                    {
+                                        var preguntaslst = Regex.Split(lineaspdfdefinitivo[bloque], @"([:][\s]*[\s+][\s+/g[A-Z][\.]|[\.][\s][A-Z][\.])", RegexOptions.ExplicitCapture);
+
+                                        if (preguntaslst.Count() > 0)
+                                        {
+                                            TestPreguntas pregunta = new TestPreguntas();
+                                            pregunta.IDTema = IDTema;
+                                            pregunta.Descripcion = preguntaslst.ToList().FirstOrDefault();
+
+                                            Db.TestPreguntas.Add(pregunta);
+                                            Db.SaveChanges();
+                                            int idPregunta = pregunta.IDPregunta;
+
+                                            short intOrden = 1;
+                                            List<TestRespuestas> respuestas = (from r in preguntaslst.Skip(1).Take(preguntaslst.Count())
+                                                                               select new TestRespuestas
+                                                                               {
+                                                                                   IDPregunta = idPregunta,
+                                                                                   Descripcion = r,
+                                                                                   Orden = intOrden++,
+                                                                                   Correcta = false
+                                                                               }).ToList();
+                                            foreach (TestRespuestas respuesta in respuestas)
+                                            {
+                                                Db.TestRespuestas.Add(respuesta);
+                                                Db.SaveChanges();
+                                            }
+                                        }
+                                    }
+                                    t.Complete();
+                                    ViewBag.DatosGrabados = true;
                                 }
-                                t.Complete();
-                                ViewBag.DatosGrabados = true;
                             }
                             catch (Exception ex)
                             {
+                                ModelState.AddModelError("", "Error al importar el test.");
                                 t.Dispose();
                             }
                         }
@@ -114,6 +112,7 @@ namespace Laboratorio1IngSw.Controllers
                 }
                 catch (Exception ex)
                 {
+                    ModelState.AddModelError("", ex.Message);
                 }
             }
             return RedirectToAction("Index", "TestRespuestas");

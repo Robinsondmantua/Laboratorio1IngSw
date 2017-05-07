@@ -19,7 +19,7 @@ namespace Laboratorio1IngSw.Controllers
         // GET: TestPreguntas
         public ActionResult Index(int? page)
         {
-            var temas = db.TestPreguntas.Include(t => t.Test).Include(tema =>tema.Test.Temas).OrderBy(x => x.IDTest);
+            var temas = db.TestPreguntas.Include(t => t.Temas).OrderBy(x => x.IDTema);
             int pageSize = 8;
             int pageNumber = (page ?? 1);
             return View(temas.ToPagedList(pageNumber, pageSize));
@@ -44,7 +44,7 @@ namespace Laboratorio1IngSw.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.IDTest = new SelectList(db.Test, "IDTest", "IDTest");
+            ViewBag.IDTema = new SelectList(db.Temas, "IDTema", "Descripcion");
             return View();
         }
 
@@ -54,7 +54,7 @@ namespace Laboratorio1IngSw.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public ActionResult Create([Bind(Include = "IDPregunta,IDTest,Descripcion")] TestPreguntas testPreguntas)
+        public ActionResult Create([Bind(Include = "IDPregunta,IDTema,Descripcion")] TestPreguntas testPreguntas)
         {
             if (ModelState.IsValid)
             {
@@ -63,7 +63,7 @@ namespace Laboratorio1IngSw.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IDTest = new SelectList(db.Test, "IDTest", "IDTest", testPreguntas.IDTest);
+            ViewBag.IDTest = new SelectList(db.Temas, "IDTema", "IDTema", testPreguntas.IDTema);
             return View(testPreguntas);
         }
 
@@ -81,7 +81,7 @@ namespace Laboratorio1IngSw.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IDTest = new SelectList(db.Test, "IDTest", "IDTest", testPreguntas.IDTest);
+            ViewBag.IDTest = new SelectList(db.Temas, "IDTema", "IDTema", testPreguntas.IDTema);
             return View(testPreguntas);
         }
 
@@ -91,7 +91,7 @@ namespace Laboratorio1IngSw.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public ActionResult Edit([Bind(Include = "IDPregunta,IDTest,Descripcion")] TestPreguntas testPreguntas)
+        public ActionResult Edit([Bind(Include = "IDPregunta,IDTema,Descripcion")] TestPreguntas testPreguntas)
         {
             if (ModelState.IsValid)
             {
@@ -99,7 +99,7 @@ namespace Laboratorio1IngSw.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IDTest = new SelectList(db.Test, "IDTest", "IDTest", testPreguntas.IDTest);
+            ViewBag.IDTest = new SelectList(db.Temas, "IDTema", "IDTema", testPreguntas.IDTema);
             return View(testPreguntas);
         }
 

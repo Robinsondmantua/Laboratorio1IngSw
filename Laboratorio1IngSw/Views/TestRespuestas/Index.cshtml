@@ -17,9 +17,6 @@
                     <thead>
                         <tr>
                             <th>
-                                IdPregunta
-                            </th>
-                            <th>
                                 Pregunta
                             </th>
                             <th>
@@ -40,9 +37,6 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.IDPregunta)
-                                </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.TestPreguntas.Descripcion)
                                 </td>
