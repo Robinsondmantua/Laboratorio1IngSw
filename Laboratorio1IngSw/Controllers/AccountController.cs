@@ -31,6 +31,8 @@ namespace Laboratorio1IngSw.Controllers
         [AllowAnonymous]
         public ActionResult LogIn(UsuarioLoginView ulv, string returnUrl)
         {
+            // Se compara el hash de la contraseña introducida con el hash de la 
+            // contraseña guardada para ese usuario en la BB.DD.
             if (ModelState.IsValid)
             {
                 UserManager um = new UserManager();
@@ -58,6 +60,7 @@ namespace Laboratorio1IngSw.Controllers
         [Authorize]
         public ActionResult SignOut()
         {
+            //Cierre de sesión del usuario.
             FormsAuthentication.SignOut();
             Session.Abandon();
             return RedirectToAction("LogIn");

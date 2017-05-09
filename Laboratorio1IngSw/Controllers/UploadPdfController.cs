@@ -43,13 +43,13 @@ namespace Laboratorio1IngSw.Controllers
                                 PdfReader pdf = new PdfReader(file.InputStream);
                                 List<string> lineaspdfparcial = new List<string>();
                                 List<string> lineaspdfdefinitivo = new List<string>();
-
+                                // Valida si ya existe un test para el tema seleccionado.
                                 var temascontest = Db.TestPreguntas.Where(o => o.IDTema == IDTema);
                                 if (temascontest.Any())
                                 {
                                     //Ya existe un test para este tema. Hay que eliminar las pregutnas
                                     //asociadas al tema.
-                                    ModelState.AddModelError("", "Ya existe un tes asociado a este tema. Elimina las preguntas.");
+                                    ModelState.AddModelError("", "Ya existe un test asociado a este tema. Elimina las preguntas.");
                                 }
                                 else
                                 {
@@ -59,6 +59,9 @@ namespace Laboratorio1IngSw.Controllers
                                         string textoPagina = PdfTextExtractor.GetTextFromPage(pdf, pagina, strategy);
                                         textoPagina = Regex.Replace(textoPagina, @"\t|\n|\r", "");
 
+                                        // Si coincide la búsqueda, recupera las líneas que coinciden con la 
+                                        // expresión regular (aquellas que comiencen con uno o dos dígitos seguidos
+                                        // de un punto).
                                         if (textoPagina.Contains("– Test"))
                                         {
                                             lineaspdfparcial = Regex.Split(textoPagina, @"[\d]{1,2}[\.]", RegexOptions.None).ToList();
@@ -68,6 +71,8 @@ namespace Laboratorio1IngSw.Controllers
                                     }
                                     pdf.Close();
 
+                                    //Recupera las respuestas partiendo de las líneas anteriores e inserta 
+                                    //preguntas y respuestas en la BB.DD, completando la transacción.
                                     for (int bloque = 0, lenpreguntas = lineaspdfdefinitivo.Count; bloque < lenpreguntas; bloque++)
                                     {
                                         var preguntaslst = Regex.Split(lineaspdfdefinitivo[bloque], @"([:][\s]*[\s+][\s+/g[A-Z][\.]|[\.][\s]*[A-Z][\.])", RegexOptions.ExplicitCapture);
